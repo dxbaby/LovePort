@@ -3,10 +3,8 @@ package me.jiangcai.loveport.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -53,12 +51,6 @@ import java.lang.reflect.Method;
 @EnableTransactionManagement(mode = AdviceMode.PROXY)
 @EnableAspectJAutoProxy
 //@EnableLoadTimeWeaving
-@ComponentScan(basePackages = {
-        "com.huotu.huobanplus.base.event",
-        "com.huotu.huobanplus.base.bean",
-        "com.huotu.huobanplus.base.service",
-        "com.huotu.huobanplus.base.toolService"})
-@EnableJpaRepositories(basePackages = {"com.huotu.huobanplus.base.repository"})
 //@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableScheduling
 //TODO http://docs.spring.io/spring-data/jpa/docs/1.8.2.RELEASE/reference/html/
