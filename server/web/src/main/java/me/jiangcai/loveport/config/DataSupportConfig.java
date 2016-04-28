@@ -1,10 +1,10 @@
 package me.jiangcai.loveport.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import java.lang.reflect.Method;
 
@@ -54,9 +55,11 @@ import java.lang.reflect.Method;
 //@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableScheduling
 //TODO http://docs.spring.io/spring-data/jpa/docs/1.8.2.RELEASE/reference/html/
+@ImportResource("classpath:datasource.xml")
 public class DataSupportConfig implements TransactionManagementConfigurer {
 
-    @Autowired
+    //    @Autowired
+    @Resource
     private EntityManagerFactory entityManagerFactory;
 
 //    @Bean
