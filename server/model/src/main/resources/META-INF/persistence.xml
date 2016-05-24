@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="LovePort" transaction-type="JTA">
+
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:/jdbc/demoXADS</jta-data-source>
+        <!--<jar-file>lib/model-1.0-SNAPSHOT.jar</jar-file>-->
+
+        <class>me.jiangcai.loveport.entity.Login</class>
+        <class>me.jiangcai.loveport.entity.Charge</class>
+        <class>me.jiangcai.loveport.entity.Manager</class>
+        <class>me.jiangcai.loveport.entity.Nurse</class>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <shared-cache-mode>ALL</shared-cache-mode>
+
+        <properties>
+
+            <!-- Bind entity manager factory to JNDI at java:jboss/myEntityManagerFactory -->
+            <property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/jpa/LovePort"/>
+
+            <property name="eclipselink.weaving" value="false"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+
+            <!--java.lang.ClassNotFoundException: org.eclipse.persistence.sessions.coordination.jgroups.JGroupsTransportManager-->
+            <!--<property name="eclipselink.cache.coordination.protocol" value="jgroups"/>-->
+
+        </properties>
+    </persistence-unit>
+
+</persistence>

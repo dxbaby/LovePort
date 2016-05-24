@@ -5,13 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
@@ -55,8 +52,11 @@ import java.lang.reflect.Method;
 //@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableScheduling
 //TODO http://docs.spring.io/spring-data/jpa/docs/1.8.2.RELEASE/reference/html/
-@ImportResource("classpath:datasource.xml")
-public class DataSupportConfig implements TransactionManagementConfigurer {
+@ImportResource({
+        "classpath:container_datasource.xml"
+        , "classpath:datasource.xml"
+})
+public class DataSupportConfig {
 
     //    @Autowired
     @Resource
@@ -77,12 +77,12 @@ public class DataSupportConfig implements TransactionManagementConfigurer {
 //    @Autowired
 //    private DataSource dataSource;
 
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        JpaTransactionManager manager = new JpaTransactionManager();
-        manager.setEntityManagerFactory(entityManagerFactory);
-        return manager;
-    }
+//    @Bean
+//    public PlatformTransactionManager transactionManager() {
+//        JpaTransactionManager manager = new JpaTransactionManager();
+//        manager.setEntityManagerFactory(entityManagerFactory);
+//        return manager;
+//    }
 
 //    @Bean
 //    public DataSourceTransactionManager dataSourceTransactionManager(){
@@ -94,8 +94,8 @@ public class DataSupportConfig implements TransactionManagementConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return transactionManager();
-    }
+//    @Override
+//    public PlatformTransactionManager annotationDrivenTransactionManager() {
+//        return transactionManager();
+//    }
 }
