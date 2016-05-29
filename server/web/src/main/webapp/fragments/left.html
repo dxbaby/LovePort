@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:bkt="http://bracket.jiangcai.me" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../css/style.default.css" th:href="@{/css/style.default.css}"/>
+    <link rel="stylesheet" href="../css/bootstrap-fileupload.min.css" th:href="@{/css/bootstrap-fileupload.min.css}"/>
+    <link rel="stylesheet" href="../css/bootstrap-timepicker.min.css" th:href="@{/css/bootstrap-timepicker.min.css}"/>
+    <link rel="stylesheet" href="../css/jquery.tagsinput.css" th:href="@{/css/jquery.tagsinput.css}"/>
+    <link rel="stylesheet" href="../css/colorpicker.css" th:href="@{/css/colorpicker.css}"/>
+    <link rel="stylesheet" href="../css/dropzone.css" th:href="@{/css/dropzone.css}"/>
+
+
+    <script src="../js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+    <script src="../js/jquery-ui-1.10.3.min.js" th:src="@{/js/jquery-ui-1.10.3.min.js}"></script>
+    <script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="../js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
+    <script src="../js/jquery.sparkline.min.js" th:src="@{/js/jquery.sparkline.min.js}"></script>
+    <script src="../js/toggles.min.js" th:src="@{/js/toggles.min.js}"></script>
+    <script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
+    <script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
+
+    <script src="../js/jquery.autogrow-textarea.js" th:src="@{/js/jquery.autogrow-textarea.js}"></script>
+    <script src="../js/bootstrap-fileupload.min.js" th:src="@{/js/bootstrap-fileupload.min.js}"></script>
+    <script src="../js/bootstrap-timepicker.min.js" th:src="@{/js/bootstrap-timepicker.min.js}"></script>
+    <script src="../js/jquery.maskedinput.min.js" th:src="@{/js/jquery.maskedinput.min.js}"></script>
+    <script src="../js/jquery.tagsinput.min.js" th:src="@{/js/jquery.tagsinput.min.js}"></script>
+    <script src="../js/jquery.mousewheel.js" th:src="@{/js/jquery.mousewheel.js}"></script>
+    <script src="../js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js}"></script>
+    <script src="../js/dropzone.min.js" th:src="@{/js/dropzone.min.js}"></script>
+    <script src="../js/colorpicker.js" th:src="@{/js/colorpicker.js}"></script>
+
+
+    <script src="../js/custom.js" th:src="@{/js/custom.js}"></script>
+
+    <title>这里是显示左侧--可以理解为导航栏的模板</title>
+    <meta name="description" content="left模板 支持输入参数activeMenu 标识当前所在的菜单"/>
+</head>
+<body>
+
+<div class="leftpanel" th:fragment="left (activeMenu)">
+
+    <div class="logopanel">
+        <h1><span>[</span> 后台管理 <span>]</span></h1>
+    </div><!-- logopanel -->
+
+    <div class="leftpanelinner">
+
+        <!-- This is only visible to small devices -->
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">
+            <div class="media userlogged">
+                <img alt="" src="../images/photos/loggeduser.png" class="media-object"/>
+
+                <div class="media-body">
+                    <h4>John Doe</h4>
+                    <span>"Life is so..."</span>
+                </div>
+            </div>
+
+            <h5 class="sidebartitle actitle">Account</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                <li><a href="../profile.html"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                <li><a href=""><i class="fa fa-cog"></i> <span>Account Settings2</span></a></li>
+                <li><a href=""><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
+                <li><a href="../user/signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+            </ul>
+        </div>
+
+        <h5 class="sidebartitle">导航</h5>
+        <ul class="nav nav-pills nav-stacked nav-bracket">
+            <li bkt:activeMenu="index"><a href="../index/index.html"><i class="fa fa-home"></i> <span>帮助</span></a></li>
+
+            <li bkt:activemenu="job"><a href="../job/index.html"><i class="fa fa-suitcase"></i> <span>任务管理</span></a>
+            </li>
+
+            <li class="nav-parent" bkt:activemenu="'users,nurses,patients,wards"><a href=""><i class="fa fa-users"></i>
+                <span>用户管理</span></a>
+                <ul class="children" bkt:menuChildren="1">
+                    <li bkt:activemenu="nurses"><a href="../users/nurse.html"><i class="fa fa-caret-right"></i> 护工管理</a>
+                    </li>
+                    <li bkt:activemenu="patients"><a href="../users/patient.html"><i class="fa fa-caret-right"></i> 病人管理</a>
+                    </li>
+                    <li bkt:activemenu="wards"><a href="../users/ward.html"><i class="fa fa-caret-right"></i> 病房管理</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li bkt:activemenu="lock"><a href="../users/lock.html"><i class="fa fa-lock"></i> <span>门禁管理</span></a></li>
+            <li bkt:activemenu="dict"><a href="../settings/dict.html"><i class="fa fa-edit"></i> <span>字典管理</span></a>
+            </li>
+            <li bkt:activemenu="setting"><a href="../settings/more.html"><i class="fa fa-gears"></i> <span>设置</span></a>
+            </li>
+
+        </ul>
+
+
+        <div class="infosummary" th:if="${#isEndUser}">
+            <!--/*@thymesVar id="#user" type="org.jolene.threek.entity.User"*/-->
+            <!--/*@thymesVar id="#ticketCount" type="java.lang.Integer"*/-->
+
+            <h5 class="sidebartitle">帐号简报</h5>
+            <ul>
+                <li>
+                    <div class="datainfo">
+                        <span class="text-muted">账户余额</span>
+                        <h4 about="balance" th:text="${#numbers.formatDecimal(#user.balance,1,2)}">630, 201</h4>
+                    </div>
+                    <div id="balance-chart" class="chart"></div>
+                </li>
+                <li>
+                    <div class="datainfo">
+                        <span class="text-muted">可用入场券</span>
+                        <h4 about="ticketCount" th:text="${#ticketCount}">100</h4>
+                    </div>
+                    <div id="ticketCount-chart" class="chart"></div>
+                </li>
+            </ul>
+        </div><!-- infosummary -->
+
+    </div><!-- leftpanelinner -->
+</div>
+</body>
+</html>

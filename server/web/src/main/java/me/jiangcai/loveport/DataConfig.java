@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiObjectFactoryBean;
 
 import javax.sql.DataSource;
 
@@ -48,13 +49,13 @@ public class DataConfig {
     @Configuration
     @Profile("container")
     public static class ContainerDataConfig {
-//        @Bean
-//        public Object dataSource() {
-//            JndiObjectFactoryBean bean = new JndiObjectFactoryBean();
-//            bean.setJndiName("jdbc/LovePort");
-//            bean.setResourceRef(true);
-//            return bean;
-//        }
+        @Bean
+        public Object dataSource() {
+            JndiObjectFactoryBean bean = new JndiObjectFactoryBean();
+            bean.setJndiName("jdbc/LovePort");
+            bean.setResourceRef(true);
+            return bean;
+        }
     }
 
 }

@@ -4,7 +4,7 @@
     <persistence-unit name="LovePort" transaction-type="JTA">
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>java:/jdbc/demoXADS</jta-data-source>
+        <jta-data-source>java:/jdbc/LovePort</jta-data-source>
         <!--<jar-file>lib/model-1.0-SNAPSHOT.jar</jar-file>-->
 
         <class>me.jiangcai.loveport.entity.Login</class>

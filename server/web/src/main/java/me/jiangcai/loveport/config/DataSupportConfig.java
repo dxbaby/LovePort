@@ -53,8 +53,7 @@ import java.lang.reflect.Method;
 @EnableScheduling
 //TODO http://docs.spring.io/spring-data/jpa/docs/1.8.2.RELEASE/reference/html/
 @ImportResource({
-        "classpath:container_datasource.xml"
-        , "classpath:datasource.xml"
+        "classpath:datasource.xml"
 })
 public class DataSupportConfig {
 

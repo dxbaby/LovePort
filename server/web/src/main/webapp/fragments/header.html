@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:k3="http://3k.io" lang="en">
+<!--/*@thymesVar id="#resourceService" type="org.jolene.threek.service.ResourceService"*/-->
+<!--/*@thymesVar id="#config" type="org.jolene.threek.SystemConfig"*/-->
+<!--/*@thymesVar id="#isEndUser" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="#isLogin" type="java.lang.Boolean"*/-->
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../css/style.default.css" th:href="@{/css/style.default.css}"/>
+
+    <link rel="stylesheet" href="../css/bootstrap-fileupload.min.css" th:href="@{/css/bootstrap-fileupload.min.css}"/>
+    <link rel="stylesheet" href="../css/bootstrap-timepicker.min.css" th:href="@{/css/bootstrap-timepicker.min.css}"/>
+    <link rel="stylesheet" href="../css/jquery.tagsinput.css" th:href="@{/css/jquery.tagsinput.css}"/>
+    <link rel="stylesheet" href="../css/colorpicker.css" th:href="@{/css/colorpicker.css}"/>
+    <link rel="stylesheet" href="../css/dropzone.css" th:href="@{/css/dropzone.css}"/>
+    <title>这里放置的是头部页面模板,不包括标题内容</title>
+</head>
+<body>
+<div class="headerbar" th:fragment="header">
+
+    <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+    <!--<form class="searchform" action="../index.html" method="post">-->
+    <!--<input type="text" class="form-control" name="keyword" placeholder="Search here..."/>-->
+    <!--</form>-->
+
+    <div class="header-right">
+        <ul class="headermenu">
+            <li th:if="${#isEndUser}">
+                <!--/*@thymesVar id="#newUsers" type="java.util.List<org.jolene.threek.entity.User>"*/-->
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="badge" th:text="${#numbers.formatInteger(#newUsers.size(),0)}">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+
+                        <h5 class="title" th:text="${#newUsers.size()+'个新的直接下线'}">直接下线用户</h5>
+                        <ul class="dropdown-list user-list">
+                            <li class="new" th:each="newUser:${#newUsers}">
+                                <div class="thumb"><a href="" k3:userProfileHref="href=${newUser}"><img
+                                        src="../images/photos/user1.png"
+                                        k3:resourceHref="src=${newUser.logoPath}"
+                                        alt=""/></a>
+                                </div>
+                                <div class="desc">
+                                    <h5><a href="" k3:userProfileHref="href=${newUser}"
+                                           th:text="${newUser.humanReadName}">Draniem Daamul
+                                        (@draniem)</a> <span
+                                            class="badge badge-success">new</span></h5>
+                                </div>
+                            </li>
+                            <li class="new" th:remove="all">
+                                <div class="thumb"><a href=""><img src="../images/photos/user1.png" alt=""/></a>
+                                </div>
+                                <div class="desc">
+                                    <h5><a href="">Draniem Daamul (@draniem)</a> <span
+                                            class="badge badge-success">new</span></h5>
+                                </div>
+                            </li>
+                            <li th:remove="all">
+                                <div class="thumb"><a href=""><img src="../images/photos/user3.png" alt=""/></a>
+                                </div>
+                                <div class="desc">
+                                    <h5><a href="">Weno Carasbong (@wenocar)</a></h5>
+                                </div>
+                            </li>
+                            <li class="new"><a href="">See All Users</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li th:if="${#isLogin}">
+                <!--/*@thymesVar id="#newEmails" type="java.util.List<org.jolene.threek.entity.Email>"*/-->
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <span class="badge" th:text="${#numbers.formatInteger(#newEmails.size(),0)}">1</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title" th:text="${#newEmails.size()}+'个新邮件'">1个新邮件</h5>
+                        <ul class="dropdown-list gen-list">
+                            <li class="new" th:each="email:${#newEmails}">
+                                <a href="" k3:emailHref="href=${email}">
+                                    <span class="thumb"><img src="../images/photos/user1.png"
+                                                             k3:resourceHref="src=${email.content.belong.logoPath}"
+                                                             alt=""/></span>
+                    <span class="desc">
+                      <span class="name" th:text="${#strings.abbreviate(email.content.belong.humanReadName,16)}">Draniem Daamul
+                          <span class="badge badge-success">new</span></span>
+                      <span class="msg" th:text="${#strings.abbreviate(email.content.title,22)}">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                                </a>
+                            </li>
+                            <li th:remove="all">
+                                <a href="">
+                                    <span class="thumb"><img src="../images/photos/user2.png" alt=""/></span>
+                    <span class="desc">
+                      <span class="name">Nusja Nawancali</span>
+                      <span class="msg">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                                </a>
+                            </li>
+                            <li class="new"><a href="">Read All Messages</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">订单</h5>
+                        <ul class="dropdown-list gen-list">
+                            <li class="new">
+                                <a href="">
+                                    <span class="thumb"><img src="../images/photos/user4.png" alt=""/></span>
+                    <span class="desc">
+                      <span class="name">Zaham Sindilmaca <span class="badge badge-success">new</span></span>
+                      <span class="msg">is now following you</span>
+                    </span>
+                                </a>
+                            </li>
+                            <li class="new">
+                                <a href="">
+                                    <span class="thumb"><img src="../images/photos/user3.png" alt=""/></span>
+                    <span class="desc">
+                      <span class="name">Nusja Nawancali <span class="badge badge-success">new</span></span>
+                      <span class="msg">send you 2 messages</span>
+                    </span>
+                                </a>
+                            </li>
+                            <li class="new"><a href="">See All Notifications</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li th:if="${#isLogin}">
+                <!--/*@thymesVar id="#login" type="org.jolene.threek.entity.Login"*/-->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="../images/photos/loggeduser.png" k3:resourceHref="src=${#login.logoPath}" alt=""/>
+                        <span class="username" th:text="${#login.humanReadName}">John Doe</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="../user/profile.html" th:href="@{/profile}"><i
+                                class="glyphicon glyphicon-user"></i> 关于我</a>
+                        </li>
+                        <li><a href="../user/setting.html" th:href="@{/setting}"><i
+                                class="glyphicon glyphicon-cog"></i> 设置</a></li>
+                        <li><a href="../user/help.html" th:href="@{/help}"><i
+                                class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                        <li><a href="../signin.html" th:href="@{/logout}">
+                            <i class="glyphicon glyphicon-log-out"></i> 离开</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+    </div><!-- header-right -->
+
+</div><!-- headerbar -->
+
+
+<script src="../js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script src="../js/jquery-ui-1.10.3.min.js" th:src="@{/js/jquery-ui-1.10.3.min.js}"></script>
+<script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
+<script src="../js/jquery.sparkline.min.js" th:src="@{/js/jquery.sparkline.min.js}"></script>
+<script src="../js/toggles.min.js" th:src="@{/js/toggles.min.js}"></script>
+<script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
+<script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
+
+<script src="../js/jquery.autogrow-textarea.js" th:src="@{/js/jquery.autogrow-textarea.js}"></script>
+<script src="../js/bootstrap-fileupload.min.js" th:src="@{/js/bootstrap-fileupload.min.js}"></script>
+<script src="../js/bootstrap-timepicker.min.js" th:src="@{/js/bootstrap-timepicker.min.js}"></script>
+<script src="../js/jquery.maskedinput.min.js" th:src="@{/js/jquery.maskedinput.min.js}"></script>
+<script src="../js/jquery.tagsinput.min.js" th:src="@{/js/jquery.tagsinput.min.js}"></script>
+<script src="../js/jquery.mousewheel.js" th:src="@{/js/jquery.mousewheel.js}"></script>
+<script src="../js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js}"></script>
+<script src="../js/dropzone.min.js" th:src="@{/js/dropzone.min.js}"></script>
+<script src="../js/colorpicker.js" th:src="@{/js/colorpicker.js}"></script>
+
+
+<script src="../js/custom.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+
+        // Chosen Select
+        jQuery(".chosen-select").chosen({'width': '100%', 'white-space': 'nowrap'});
+
+        // Tags Input
+        jQuery('#tags').tagsInput({width: 'auto'});
+
+        // Textarea Autogrow
+        jQuery('#autoResizeTA').autogrow();
+
+        // Color Picker
+        if (jQuery('#colorpicker').length > 0) {
+            jQuery('#colorSelector').ColorPicker({
+                onShow: function (colpkr) {
+                    jQuery(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    jQuery(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
+                    jQuery('#colorpicker').val('#' + hex);
+                }
+            });
+        }
+
+        // Color Picker Flat Mode
+        jQuery('#colorpickerholder').ColorPicker({
+            flat: true,
+            onChange: function (hsb, hex, rgb) {
+                jQuery('#colorpicker3').val('#' + hex);
+            }
+        });
+
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+
+        jQuery('#datepicker-inline').datepicker();
+
+        jQuery('#datepicker-multiple').datepicker({
+            numberOfMonths: 3,
+            showButtonPanel: true
+        });
+
+        // Spinner
+        var spinner = jQuery('#spinner').spinner();
+        spinner.spinner('value', 0);
+
+        // Input Masks
+        jQuery("#date").mask("99/99/9999");
+        jQuery("#phone").mask("(999) 999-9999");
+        jQuery("#ssn").mask("999-99-9999");
+
+        // Time Picker
+        jQuery('#timepicker').timepicker({defaultTIme: false});
+        jQuery('#timepicker2').timepicker({showMeridian: false});
+        jQuery('#timepicker3').timepicker({minuteStep: 15});
+
+
+    });
+</script>
+</body>
+</html>

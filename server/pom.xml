@@ -46,7 +46,7 @@
     <properties>
         <java.version>1.8</java.version>
         <javaee.version>7.0</javaee.version>
-        <luffy.version>2.0</luffy.version>
+        <luffy.version>2.1-SNAPSHOT</luffy.version>
         <spring.version>4.2.5.RELEASE</spring.version>
         <kotlin.version>1.0.1-2</kotlin.version>
     </properties>

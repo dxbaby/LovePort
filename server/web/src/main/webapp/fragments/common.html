@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:k3="http://3k.io" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>常用的组件,比如模板弹窗,信息框</title>
+</head>
+<body>
+
+<!--这个组件可以增加一个可任意调用的javascriptFunction用于打开一个界面友好的Alert-->
+<!--并且会根据当前的上下文环境自动打开一个alert-->
+<div th:fragment="alertFunctions">
+    <script src="../js/jquery.gritter.min.js" th:src="@{/js/jquery.gritter.min.js}"></script>
+    <script src="../js/jquery.util.js" th:src="@{/js/jquery.util.js}"></script>
+    <link href="../css/jquery.gritter.css" rel="stylesheet" th:href="@{/css/jquery.gritter.css}"/>
+    <script>
+        function showPrimary(title, text, image, time) {
+            jQuery.gritter.add({
+                title: title,
+                text: text,
+                class_name: 'growl-primary',
+                image: image,
+                sticky: false,
+                time: time ? time : ''
+            });
+        }
+        function showSuccess(title, text, image, time) {
+            jQuery.gritter.add({
+                title: title,
+                text: text,
+                class_name: 'growl-success',
+                image: image,
+                sticky: false,
+                time: time ? time : ''
+            });
+        }
+        function showWarning(title, text, image, time) {
+            jQuery.gritter.add({
+                title: title,
+                text: text,
+                class_name: 'growl-warning',
+                image: image,
+                sticky: false,
+                time: time ? time : ''
+            });
+        }
+        function showDanger(title, text, image, time) {
+            jQuery.gritter.add({
+                title: title,
+                text: text,
+                class_name: 'growl-danger',
+                image: image,
+                sticky: false,
+                time: time ? time : ''
+            });
+        }
+        function showInfo(title, text, image, time) {
+            jQuery.gritter.add({
+                title: title,
+                text: text,
+                class_name: 'growl-info',
+                image: image,
+                sticky: false,
+                time: time ? time : ''
+            });
+        }
+    </script>
+    <!--/*@thymesVar id="dangerMessage" type="java.lang.String"*/-->
+    <script th:if="${dangerMessage!=null}" th:inline="javascript">
+        var title = /*[[${dangerMessage}]]*/ 'This is a danger notice!';
+        $(function () {
+            showDanger('错误', title);
+        });
+    </script>
+    <!--/*@thymesVar id="successMessage" type="java.lang.String"*/-->
+    <script th:if="${successMessage!=null}" th:inline="javascript">
+        var title = /*[[${successMessage}]]*/ 'This is a success notice!';
+        $(function () {
+            showSuccess('成功', title);
+        });
+    </script>
+    <!--/*@thymesVar id="infoMessage" type="java.lang.String"*/-->
+    <script th:if="${infoMessage!=null}" th:inline="javascript">
+        var title = /*[[${infoMessage}]]*/ 'This is a info notice!';
+        $(function () {
+            showInfo('信息', title);
+        });
+    </script>
+    <!--/*@thymesVar id="warningMessage" type="java.lang.String"*/-->
+    <script th:if="${warningMessage!=null}" th:inline="javascript">
+        var title = /*[[${warningMessage}]]*/ 'This is a warning notice!';
+        $(function () {
+            showWarning('警告', title);
+        });
+    </script>
+</div>
+
+<div th:fragment="alert (title,text,clazz,image,time,sticky)">
+    <script src="../js/jquery.gritter.min.js" th:src="@{/js/jquery.gritter.min.js}"></script>
+    <link href="../css/jquery.gritter.css" rel="stylesheet" th:href="@{/css/jquery.gritter.css}"/>
+    <script th:inline="javascript">
+        jQuery(function () {
+            var title = /*[[${title}]]*/ 'This is a regular notice!';
+            var text = /*[[${text}]]*/ 'This is a regular notice!';
+            var clazz = /*[[${clazz}]]*/ 'growl-danger';
+            var image = /*[[${image}]]*/ null;
+            var time = /*[[${time}]]*/ '';
+            var sticky = /*[[${sticky}]]*/ false;
+            jQuery.gritter.add({
+                title: title,
+                text: text,
+                class_name: clazz,
+                image: image,
+                sticky: sticky,
+                time: time
+            });
+        });
+    </script>
+</div>
+
+<p th:fragment="paymentMethods (disableUnusedable)" th:remove="all-but-first">
+    <label class="checkbox block" k3:paymentMethods="payment">
+        <!--/*@thymesVar id="payment" type="org.jolene.threek.common.PaymentMethod"*/-->
+        <input name="paymentMethod" type="checkbox" th:value="${payment.name()}"
+               th:text="${payment.humanReadableName}"/>
+    </label>
+
+    <label class="checkbox block"><input type="checkbox"/>银行支付</label>
+    <label class="checkbox block"><input type="checkbox"/>支付宝</label>
+    <label class="checkbox block"><input type="checkbox"/>微信支付</label>
+</p>
+
+</body>
+</html>
