@@ -44,9 +44,12 @@
     <!--<ciManagement></ciManagement>-->
 
     <properties>
-        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <javaee.version>7.0</javaee.version>
-        <luffy.version>2.1-SNAPSHOT</luffy.version>
+        <jiangcai.lib.version>2.1-SNAPSHOT</jiangcai.lib.version>
         <spring.version>4.2.5.RELEASE</spring.version>
         <kotlin.version>1.0.1-2</kotlin.version>
     </properties>
@@ -81,14 +84,14 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.luffy.lib</groupId>
-            <artifactId>libspring</artifactId>
-            <version>${luffy.version}</version>
+            <groupId>me.jiangcai.lib</groupId>
+            <artifactId>spring</artifactId>
+            <version>${jiangcai.lib.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.luffy.lib</groupId>
+            <groupId>me.jiangcai.lib</groupId>
             <artifactId>test</artifactId>
-            <version>${luffy.version}</version>
+            <version>${jiangcai.lib.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
