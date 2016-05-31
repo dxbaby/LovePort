@@ -62,6 +62,11 @@
             <artifactId>upgrade</artifactId>
             <version>${jiangcai.lib.version}</version>
         </dependency>
+        <dependency>
+            <groupId>me.jiangcai.lib</groupId>
+            <artifactId>jdbc</artifactId>
+            <version>${jiangcai.lib.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

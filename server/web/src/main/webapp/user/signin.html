@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<!--/*@thymesVar id="#config" type="org.jolene.threek.SystemConfig"*/-->
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -8,14 +7,14 @@
     <meta name="author" content=""/>
     <link rel="shortcut icon" href="images/favicon.png" th:href="@{/images/favicon.png}" type="image/png"/>
 
-    <title th:text="${'登录 '+#config.title}">登录 3k</title>
+    <title>登录安吉爱护照后台管理</title>
 
-    <link href="css/style.default.css" th:href="@{/css/style.default.css}" rel="stylesheet"/>
+    <link href="../css/style.default.css" th:href="@{/css/style.default.css}" rel="stylesheet"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="../js/html5shiv.js" th:src="@{/js/html5shiv.js}"></script>
+    <script src="../js/respond.min.js" th:src="@{/js/respond.min.js}"></script>
     <![endif]-->
 </head>
 
@@ -37,30 +36,27 @@
 
                 <div class="signin-info">
                     <div class="logopanel">
-                        <h1 th:utext="${#config.htmlTitle}"><span>[</span> 3K welcome <span>]</span></h1>
+                        <h1><span>[</span> 安吉爱护照 <span>]</span></h1>
                     </div><!-- logopanel -->
 
                     <div class="mb20"></div>
 
-                    <h5><strong th:utext="${#config.welcomeMessage}">欢迎来到3K!</strong></h5>
+                    <h5><strong>欢迎登录!</strong></h5>
                     <ul th:remove="all-but-first">
-                        <li th:each="message:${#config.welcomeFeatures}">
-                            <i class="fa fa-arrow-circle-o-right mr5"></i> <span th:text="${message}">Fully Responsive Layout</span>
-                        </li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>HTML5/CSS3 Valid</span></li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>Retina Ready</span></li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>WYSIWYG CKEditor</span></li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>实时床位监控</span></li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>警报信息分享</span></li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>便捷的APP使用</span></li>
                         <li><i class="fa fa-arrow-circle-o-right mr5"></i> <span>and much more...</span></li>
                     </ul>
                     <div class="mb20"></div>
-                    <strong>还没有帐号? <a href="signup.html" th:href="@{/register}">请注册</a></strong>
+                    <!--<strong>还没有帐号? <a href="signup.html" th:href="@{/register}">请注册</a></strong>-->
                 </div><!-- signin0-info -->
 
             </div><!-- col-sm-7 -->
 
             <div class="col-md-5">
 
-                <form method="post" action="index.html" th:action="@{/auth}">
+                <form method="post" action="../index.html" th:action="@{/auth}">
                     <h4 class="nomargin">登录</h4>
 
                     <p class="mt5 mb20">所有操作都需要登录才可以继续.</p>
@@ -91,16 +87,16 @@
 </section>
 
 
-<script src="js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
-<script src="js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
-<script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-<script src="js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
-<script src="js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
-<script src="js/toggles.min.js" th:src="@{/js/toggles.min.js}"></script>
-<script src="js/jquery.sparkline.min.js" th:src="@{/js/jquery.sparkline.min.js}"></script>
-<script src="js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
+<script src="../js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
+<script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
+<script src="../js/toggles.min.js" th:src="@{/js/toggles.min.js}"></script>
+<script src="../js/jquery.sparkline.min.js" th:src="@{/js/jquery.sparkline.min.js}"></script>
+<script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
 
-<script src="js/custom.js" th:src="@{/js/custom.js}"></script>
+<script src="../js/custom.js" th:src="@{/js/custom.js}"></script>
 
 <div th:if="${'error'==#httpServletRequest.getParameter('type')}">
     <div

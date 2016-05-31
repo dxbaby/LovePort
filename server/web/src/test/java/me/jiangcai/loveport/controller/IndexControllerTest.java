@@ -1,6 +1,8 @@
 package me.jiangcai.loveport.controller;
 
+import me.jiangcai.bracket.test.auth.LoginAs;
 import me.jiangcai.loveport.TestBase;
+import me.jiangcai.loveport.entity.Login;
 import me.jiangcai.loveport.page.IndexPage;
 import me.jiangcai.loveport.repository.NurseRepository;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author CJ
  */
+@LoginAs(Login.ROLE_MANAGER)
 public class IndexControllerTest extends TestBase {
 
     @Autowired

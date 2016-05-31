@@ -14,5 +14,7 @@ public class IndexPage extends LovePortPage {
     @Override
     public void validatePage() {
 
+        shouldActiveMenuAt("fa-home");
+
     }
 }

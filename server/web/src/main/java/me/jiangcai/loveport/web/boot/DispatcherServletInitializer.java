@@ -1,6 +1,5 @@
 package me.jiangcai.loveport.web.boot;
 
-import me.jiangcai.loveport.DataConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,7 +18,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{BootConfig.class, DataConfig.class};
+        return new Class<?>[]{BootConfig.class};
     }
 
     @Override

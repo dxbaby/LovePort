@@ -1,6 +1,7 @@
 package me.jiangcai.loveport.config;
 
 import me.jiangcai.lib.bracket.BracketSpringConfig;
+import me.jiangcai.lib.jdbc.JdbcSpringConfig;
 import me.jiangcai.lib.resource.ResourceSpringConfig;
 import me.jiangcai.lib.resource.service.ResourceService;
 import me.jiangcai.lib.upgrade.UpgradeSpringConfig;
@@ -13,6 +14,7 @@ import me.jiangcai.loveport.entity.SystemString;
 import me.jiangcai.loveport.repository.SystemStringRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
@@ -29,7 +31,8 @@ import java.io.InputStream;
  * @author CJ
  */
 @Configuration
-@Import({BracketSpringConfig.class, ResourceSpringConfig.class, UpgradeSpringConfig.class})
+@ComponentScan("me.jiangcai.loveport.service")
+@Import({BracketSpringConfig.class, ResourceSpringConfig.class, UpgradeSpringConfig.class, JdbcSpringConfig.class})
 @EnableJpaRepositories(basePackages = {"me.jiangcai.loveport.repository"})
 public class CoreConfig {
 

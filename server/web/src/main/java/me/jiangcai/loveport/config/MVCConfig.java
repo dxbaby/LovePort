@@ -5,10 +5,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.dialect.IDialect;
@@ -30,22 +32,40 @@ import java.util.Set;
 @EnableWebMvc
 public class MVCConfig extends WebMvcConfigurerAdapter {
 
-    static String[] STATIC_RESOURCE_PATHS = new String[]{
+    private static String[] STATIC_RESOURCE_PATHS = new String[]{
             "css", "fonts", "holder.js", "images", "js", "_resources", "admin/js"
     };
 
     @Autowired
     private ApplicationContext applicationContext;
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Autowired
     private Set<IDialect> dialectSet;
+    @Autowired
+    private Environment environment;
 
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        super.addViewControllers(registry);
-//        // just for test
-//        registry.addViewController("").setViewName("index/index");
-//        registry.addViewController("/").setViewName("index/index");
-//    }
+    String[] staticResourceAntPatterns() {
+        String[] ignoring;
+        int startIndex = 0;
+        if (environment.acceptsProfiles("development")) {
+            ignoring = new String[MVCConfig.STATIC_RESOURCE_PATHS.length + 2];
+            ignoring[startIndex++] = "/**/*.html";
+            ignoring[startIndex++] = "/mock/**/*";
+        } else {
+            ignoring = new String[MVCConfig.STATIC_RESOURCE_PATHS.length];
+        }
+        for (String path : MVCConfig.STATIC_RESOURCE_PATHS) {
+            ignoring[startIndex++] = "/" + path + "/**/*";
+        }
+        return ignoring;
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        super.addViewControllers(registry);
+
+        registry.addViewController("/login").setViewName("user/signin");
+    }
 
     /**
      * for upload

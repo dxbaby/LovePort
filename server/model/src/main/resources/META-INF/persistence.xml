@@ -11,6 +11,9 @@
         <class>me.jiangcai.loveport.entity.Charge</class>
         <class>me.jiangcai.loveport.entity.Manager</class>
         <class>me.jiangcai.loveport.entity.Nurse</class>
+        <class>me.jiangcai.loveport.entity.Patient</class>
+        <class>me.jiangcai.loveport.entity.SystemString</class>
+        <!--<class>me.jiangcai.loveport.entity.Nurse</class>-->
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <shared-cache-mode>ALL</shared-cache-mode>
@@ -22,7 +25,7 @@
 
             <property name="eclipselink.weaving" value="false"/>
             <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
             <!--java.lang.ClassNotFoundException: org.eclipse.persistence.sessions.coordination.jgroups.JGroupsTransportManager-->
             <!--<property name="eclipselink.cache.coordination.protocol" value="jgroups"/>-->
