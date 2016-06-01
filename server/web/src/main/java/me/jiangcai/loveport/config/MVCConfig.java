@@ -33,7 +33,7 @@ import java.util.Set;
 public class MVCConfig extends WebMvcConfigurerAdapter {
 
     private static String[] STATIC_RESOURCE_PATHS = new String[]{
-            "css", "fonts", "holder.js", "images", "js", "_resources", "admin/js"
+            "css", "fonts", "holder.js", "images", "js", "_resources", "localisation", "admin/js", "users/js"
     };
 
     @Autowired

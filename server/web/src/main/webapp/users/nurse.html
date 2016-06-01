@@ -1,10 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../images/favicon.png" th:href="@{/images/favicon.png}" type="image/png">
+    <title>护工管理</title>
+    <link href="../css/style.default.css" th:href="@{/css/style.default.css}" rel="stylesheet">
+    <link href="../css/jquery.datatables.css" th:href="@{/css/jquery.datatables.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js" th:src="@{/js/html5shiv.js}"></script>
+    <script src="../js/respond.min.js" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
 </head>
 <body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+</div>
+<section>
+
+    <div class="leftpanel" th:replace="fragments/left::left('nurses')">
+
+        <div class="logopanel">
+            <h1><span>[</span> 后台管理 <span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <!-- This is only visible to small devices -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media userlogged">
+                    <img alt="" src="../images/photos/loggeduser.png" class="media-object">
+                    <div class="media-body">
+                        <h4>John Doe</h4>
+                        <span>"Life is so..."</span>
+                    </div>
+                </div>
+
+                <h5 class="sidebartitle actitle">Account</h5>
+                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                    <li><a href="../user/setting.html"><i class="fa fa-cog"></i> <span>帐号设置</span></a></li>
+                    <li><a href="../user/signin.html"><i class="fa fa-sign-out"></i> <span>登出</span></a></li>
+                </ul>
+            </div>
+
+            <h5 class="sidebartitle">导航</h5>
+            <ul id="mainMenu" class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="index.html"><i class="fa fa-home"></i> <span>帮助</span></a></li>
+
+                <li><a href="../job/index.html"><i class="fa fa-suitcase"></i> <span>任务管理</span></a></li>
+
+                <li class="nav-parent nav-active active"><a href=""><i class="fa fa-users"></i> <span>用户管理</span></a>
+                    <ul class="children" style="display: block">
+                        <li class="active"><a href="../users/nurse.html"><i class="fa fa-caret-right"></i> 护工管理</a></li>
+                        <li><a href="../users/patient.html"><i class="fa fa-caret-right"></i> 病人管理</a></li>
+                        <li><a href="../users/ward.html"><i class="fa fa-caret-right"></i> 病房管理</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../users/lock.html"><i class="fa fa-lock"></i> <span>门禁管理</span></a></li>
+                <li><a href="../settings/dict.html"><i class="fa fa-edit"></i> <span>字典管理</span></a></li>
+                <li><a href="../settings/more.html"><i class="fa fa-gears"></i> <span>设置</span></a></li>
+
+            </ul>
+
+            <div class="infosummary">
+                <h5 class="sidebartitle">系统概况</h5>
+                <ul>
+                    <li id="info-patients">
+                        <div class="datainfo">
+                            <span class="text-muted">病人数量</span>
+                            <h4>630, 201</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                    <li id="info-jobs">
+                        <div class="datainfo">
+                            <span class="text-muted">任务数量</span>
+                            <h4>201</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                    <li id="info-nurses">
+                        <div class="datainfo">
+                            <span class="text-muted">护工数量</span>
+                            <h4>1, 332, 801</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                    <li id="info-locks">
+                        <div class="datainfo">
+                            <span class="text-muted">可用门禁卡数量</span>
+                            <h4>82.2%</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                </ul>
+            </div><!-- infosummary -->
+
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <div class="headerbar" th:replace="fragments/header::header">
+
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform" action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="点击搜索……"/>
+            </form>
+
+            <div class="header-right">
+                <ul class="headermenu">
+                    <li>
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-warning-sign"></i>
+                                <span class="badge">2</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-head pull-right">
+                                <h5 class="title">待处理警告</h5>
+                                <ul class="dropdown-list user-list">
+                                    <li class="new">
+                                        <div class="thumb"><a href="../job/warning.html"><img
+                                                src="../images/photos/user3.png" alt=""/></a>
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="../job/warning.html">血压异常</a><span
+                                                    class="badge badge-success">new</span></h5>
+                                        </div>
+                                    </li>
+                                    <li class="new">
+                                        <div class="thumb"><a href="../job/warning.html"><img
+                                                src="../images/photos/user3.png" alt=""/></a>
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="../job/warning.html">体温异常</a><span
+                                                    class="badge badge-success">new</span></h5>
+                                        </div>
+                                    </li>
+                                    <li class="new"><a href="../job/warnings.html">查看所有警报</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <img src="../images/photos/loggeduser.png" alt=""/>
+                                John Doe
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                                <li><a href="../user/setting.html"><i class="glyphicon glyphicon-cog"></i> 帐号设置</a></li>
+                                <li><a href="../user/signin.html"><i class="glyphicon glyphicon-log-out"></i> 登出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- header-right -->
+
+        </div><!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-home"></i> 护工管理 <span>这里可以管理护工</span></h2>
+        </div>
+
+        <div class="contentpanel">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div><!-- panel-btns -->
+                    <h3 class="panel-title">护工列表</h3>
+                    <p>可以删除或者更改护工的信息</p>
+                </div>
+                <div class="panel-body">
+                    <!--<div class="clearfix mb30"></div>-->
+                    <!--<h5 class="subtitle mb5">Alternative Pagination</h5>-->
+                    <!--<p>The example below shows the full_numbers type of pagination, where 'first', 'previous', 'next'-->
+                    <!--and 'last' buttons are presented, as well as the five pages around the current page.</p>-->
+                    <!--<br/>-->
+                    <div class="table-responsive">
+                        <table class="table" id="nurseTable">
+                            <thead>
+                            <tr>
+                                <th>名字</th>
+                                <th>...</th>
+                                <th>最后使用时间</th>
+                                <th>正在任务</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <!--odd even-->
+                            <tbody>
+                            <tr class="odd gradeX">
+                                <td>Trident</td>
+                                <td>&nbsp;</td>
+                                <td>刚刚</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="even gradeC">
+                                <td>Trident</td>
+                                <td>&nbsp;</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">否</td>
+                                <td class="center">
+                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="odd gradeA">
+                                <td>Trident</td>
+                                <td>&nbsp;</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="even gradeA">
+                                <td>Trident</td>
+                                <td>&nbsp;</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="odd gradeA">
+                                <td>Trident</td>
+                                <td>&nbsp;</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="even gradeA">
+                                <td>Trident</td>
+                                <td>&nbsp;</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">否</td>
+                                <td class="center">
+                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div><!-- table-responsive -->
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script src="../js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script src="../js/jquery-ui-1.10.3.min.js" th:src="@{/js/jquery-ui-1.10.3.min.js}"></script>
+<script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
+<script src="../js/jquery.sparkline.min.js" th:src="@{/js/jquery.sparkline.min.js}"></script>
+<script src="../js/toggles.min.js" th:src="@{/js/toggles.min.js}"></script>
+<script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
+<script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
+<script src="../js/custom.js" th:src="@{/js/custom.js}"></script>
+<!--<script src="../js/jquery.datatables.min.js" th:src="@{/js/jquery.datatables.min.js}"></script>-->
+<script type="text/javascript" src="https://cdn.datatables.net/u/dt/dt-1.10.12/datatables.min.js"></script>
+<script src="../js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    dataTable_localisation_url = /*[[@{/localisation/dataTable_zh_CN.json}]]*/ '../localisation/dataTable_zh_CN.json';
+    /*]]*/
+</script>
+<script src="js/nurse.js" th:src="@{/users/js/nurse.js}"></script>
 
 </body>
 </html>
