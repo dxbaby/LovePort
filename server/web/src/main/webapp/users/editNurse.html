@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--/*@thymesVar id="#context" type="me.jiangcai.loveport.model.LovePortContext"*/-->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../images/favicon.png" th:href="@{/images/favicon.png}" type="image/png">
-    <title>护工管理</title>
+    <title th:text="'护工管理--'+${#context.nurse.username}">护工管理--某某</title>
     <link href="../css/style.default.css" th:href="@{/css/style.default.css}" rel="stylesheet">
     <link href="../css/jquery.datatables.css" th:href="@{/css/jquery.datatables.css}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -171,111 +172,114 @@
         </div><!-- headerbar -->
 
         <div class="pageheader">
-            <h2><i class="fa fa-home"></i> 护工管理 <span>这里可以管理护工</span></h2>
+            <h2><i class="fa fa-home"></i> 护工管理 <span th:text="${#context.nurse.username}">某某某</span></h2>
         </div>
 
         <div class="contentpanel">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-btns">
-                        <a href="" class="panel-close">&times;</a>
-                        <a href="" class="minimize">&minus;</a>
-                    </div><!-- panel-btns -->
-                    <h3 class="panel-title">护工列表</h3>
-                    <p>可以删除或者更改护工的信息</p>
-                </div>
-                <div class="panel-body">
-                    <!--<div class="clearfix mb30"></div>-->
-                    <!--<h5 class="subtitle mb5">Alternative Pagination</h5>-->
-                    <!--<p>The example below shows the full_numbers type of pagination, where 'first', 'previous', 'next'-->
-                    <!--and 'last' buttons are presented, as well as the five pages around the current page.</p>-->
-                    <!--<br/>-->
-                    <div class="table-responsive">
-                        <table class="table" id="nurseTable">
-                            <thead>
-                            <tr>
-                                <th>名字</th>
-                                <th>启用</th>
-                                <th>最后使用时间</th>
-                                <th>正在任务</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <!--odd even-->
-                            <tbody>
-                            <tr class="odd gradeX">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>刚刚</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">否</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="odd gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="even gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="odd gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="even gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">否</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+            <form action="editNurse.html" method="POST" th:action="@{/config}"
+                  th:object="${#context.nurse}">
 
-                            </tbody>
-                        </table>
-                    </div><!-- table-responsive -->
-                </div>
-            </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div>
+                        <h4 class="panel-title">护工设置</h4>
+
+                        <p>*号为必填项.</p>
+                    </div>
+                    <div class="panel-body panel-body-nopadding">
+
+                        <div class="form-horizontal form-bordered">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名 <span class="asterisk">*</span></label>
+
+                                <div class="col-sm-6">
+                                    <input name="title" title="用户名" type="text" th:value="*{username}" value="username"
+                                           class="form-control" readonly/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">是否启用</label>
+
+                                <div class="col-sm-7">
+                                    <input type="checkbox" title="启用" th:checked="*{enabled}" name="enabled"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- panel-body -->
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button class="btn btn-primary">Submit</button>
+                                &nbsp;
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+
+                </div><!-- panel -->
+
+            </form>
+
+            <form id="passwordForm" action="editNurse.html" method="POST" th:action="@{/config}"
+                  th:object="${#context.nurse}">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div>
+                        <h4 class="panel-title">密码设置</h4>
+
+                        <p>*号为必填项.</p>
+                    </div>
+                    <div class="panel-body panel-body-nopadding">
+
+                        <div class="form-horizontal form-bordered">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">密码 <span class="asterisk">*</span></label>
+
+                                <div class="col-sm-6">
+                                    <input id="password" title="密码" name="password" type="password"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">确认密码 <span class="asterisk">*</span></label>
+
+                                <div class="col-sm-6">
+                                    <input title="确认密码" name="confirmPassword" type="password" class="form-control"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- panel-body -->
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button class="btn btn-primary">Submit</button>
+                                &nbsp;
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+
+                </div><!-- panel -->
+
+            </form>
+
 
         </div><!-- contentpanel -->
 
@@ -293,15 +297,11 @@
 <script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
 <script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
 <script src="../js/custom.js" th:src="@{/js/custom.js}"></script>
-<!--<script src="../js/jquery.datatables.min.js" th:src="@{/js/jquery.datatables.min.js}"></script>-->
-<script type="text/javascript" src="https://cdn.datatables.net/u/dt/dt-1.10.12/datatables.min.js"></script>
-<script src="../js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js}"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    dataTable_localisation_url = /*[[@{/localisation/dataTable_zh_CN.json}]]*/ '../localisation/dataTable_zh_CN.json';
-    /*]]*/
-</script>
-<script src="js/nurse.js" th:src="@{/users/js/nurse.js}"></script>
+
+<script src="../js/jquery.validate.min13.js" th:src="@{/js/jquery.validate.min13.js}"></script>
+<script src="../js/msgresource/jquery.validation.message-zh_cn.js"
+        th:src="@{/js/msgresource/jquery.validation.message-zh_cn.js}"></script>
+<script src="js/editNurse.js" th:src="@{/users/js/editNurse.js}"></script>
 
 </body>
 </html>
