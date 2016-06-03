@@ -175,6 +175,54 @@
         </div>
 
         <div class="contentpanel">
+            <form id="nurseForm" action="nurse.html" method="POST" th:action="@{/config}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div><!-- panel-btns -->
+                        <h3 class="panel-title">添加护工</h3>
+                        <p>添加一名护工</p>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal form-bordered">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名 <span class="asterisk">*</span></label>
+
+                                <div class="col-sm-6">
+                                    <input name="username" title="用户名" type="text" placeholder="输入新护工的用户名"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">密码 <span class="asterisk">*</span></label>
+
+                                <div class="col-sm-6">
+                                    <input id="password" title="密码" placeholder="输入新护工的密码" name="password"
+                                           type="password"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- panel-body -->
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button class="btn btn-primary">Submit</button>
+                                &nbsp;
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+
+                </div>
+            </form>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -293,7 +341,10 @@
 <script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
 <script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
 <script src="../js/custom.js" th:src="@{/js/custom.js}"></script>
-<!--<script src="../js/jquery.datatables.min.js" th:src="@{/js/jquery.datatables.min.js}"></script>-->
+
+<script src="../js/jquery.validate.min13.js" th:src="@{/js/jquery.validate.min13.js}"></script>
+<script src="../js/msgresource/jquery.validation.message-zh_cn.js"
+        th:src="@{/js/msgresource/jquery.validation.message-zh_cn.js}"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/u/dt/dt-1.10.12/datatables.min.js"></script>
 <script src="../js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js}"></script>
 <script th:inline="javascript">
