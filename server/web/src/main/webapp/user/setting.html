@@ -189,6 +189,9 @@
                 </div>
                 <div class="panel-body">
                     <p>将图片拽入下方区域或者点击即可</p>
+                    <div th:remove="all" id="uploaderTest">
+                        <span>原型测试:点击测试文件上传成功</span>
+                    </div>
                     <br/>
                     <form id="imageUploader" action="/file/post" th:action="@{/uploadImage}" class="dropzone">
                         <div class="fallback">
@@ -198,13 +201,16 @@
                 </div><!-- panel-body -->
 
                 <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <button class="btn btn-primary">Submit</button>
-                            &nbsp;
-                            <button class="btn btn-default">Cancel</button>
+                    <form id="changeImageForm" action="setting.html" th:action="@{/userImage}" method="post">
+                        <input type="hidden" name="imagePath" title=""/>
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button class="btn btn-primary">Submit</button>
+                                &nbsp;
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div><!-- panel-footer -->
 
             </div>
@@ -286,28 +292,7 @@
         th:src="@{/js/msgresource/jquery.validation.message-zh_cn.js}"></script>
 <script src="../js/dropzone.min.js" th:href="@{/js/dropzone.min.js}"></script>
 
-<script>
-    $(function () {
-
-//        $('#imageUploader').dropzone({
-//            url:'hehe',
-//            dictDefaultMessage:'dalaoed'
-//        });
-        Dropzone.options.imageUploader = {
-            init: function () {
-                this.on("success", function (file) {
-                    console.log(file.xhr.responseURL);
-                    console.log(file.xhr.statusText);
-                })
-            }
-//            maxFilesize: 1,
-//            maxFiles: 1,
-//            parallelUploads: 1,
-//            dictDefaultMessage: '中文你看如何?'
-        }
-    });
-
-</script>
+<script src="js/setting.js" th:href="@{/user/js/setting.js}"></script>
 
 </body>
 </html>
