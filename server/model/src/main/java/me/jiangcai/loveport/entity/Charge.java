@@ -19,6 +19,6 @@ import java.util.Collection;
 @Getter
 public class Charge extends Login {
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return CollectionUtils.singleSet(new SimpleGrantedAuthority(ROLE_MANAGER));
+        return CollectionUtils.singleSet(new SimpleGrantedAuthority(ROLE_CHARGE));
     }
 }

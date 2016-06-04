@@ -33,7 +33,7 @@ class K3AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandl
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response
             , AuthenticationException exception) throws IOException, ServletException {
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         String message;
         if (exception instanceof BadCredentialsException) {
             message = "用户或者密码错误";

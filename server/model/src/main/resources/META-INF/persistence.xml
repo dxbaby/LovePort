@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
-    <persistence-unit name="LovePort" transaction-type="JTA">
+    <persistence-unit name="LovePort" transaction-type="RESOURCE_LOCAL">
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>java:/jdbc/LovePort</jta-data-source>
+        <!--<jta-data-source>java:/jdbc/LovePort</jta-data-source>-->
+        <non-jta-data-source>java:/jdbc/LovePort</non-jta-data-source>
         <!--<jar-file>lib/model-1.0-SNAPSHOT.jar</jar-file>-->
 
         <class>me.jiangcai.loveport.entity.Login</class>

@@ -7,6 +7,7 @@ import me.jiangcai.loveport.entity.Manager;
 import me.jiangcai.loveport.entity.Nurse;
 import me.jiangcai.loveport.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,18 @@ public class LoginService implements AuthenticateService<Login> {
     private LoginRepository loginRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private Environment environment;
 
     @Override
     public Login loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (environment.acceptsProfiles("test") && "root".equals(username)) {
+            Manager manager = new Manager();
+            manager.setEnabled(true);
+            manager.setUsername("root");
+            manager.setPassword(passwordEncoder.encode("root"));
+            return manager;
+        }
         Login login = loginRepository.findByUsername(username);
         if (login == null)
             throw new UsernameNotFoundException(username);

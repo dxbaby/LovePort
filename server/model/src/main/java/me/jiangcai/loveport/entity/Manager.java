@@ -19,6 +19,10 @@ import java.util.Collection;
 @Getter
 public class Manager extends Login {
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return CollectionUtils.singleSet(new SimpleGrantedAuthority(ROLE_CHARGE));
+        return CollectionUtils.mutliSet(
+                new SimpleGrantedAuthority("ROOT")
+                , new SimpleGrantedAuthority(ROLE_MANAGER)
+                , new SimpleGrantedAuthority(ROLE_CHARGE)
+        );
     }
 }
