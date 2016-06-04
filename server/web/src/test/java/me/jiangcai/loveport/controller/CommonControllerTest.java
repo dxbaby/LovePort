@@ -8,6 +8,7 @@ import me.jiangcai.loveport.entity.Login;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,20 +27,25 @@ public class CommonControllerTest extends TestBase {
     @Test
     public void uploadImage() throws Exception {
 
-        String prefix = "http://localhost:8080/_resources/";
-
-        String href = mockMvc.perform(fileUpload("/uploadImage")
-                .file(new MockMultipartFile("image", new ClassPathResource("loggeduser.png").getInputStream()))
+//        String prefix = "http://localhost:8080/_resources/";
+        MockHttpServletResponse response = mockMvc.perform(fileUpload("/uploadImage")
+                .file(new MockMultipartFile("file", new ClassPathResource("loggeduser.png").getInputStream()))
                 .session(session)
         )
                 .andExpect(status().isFound())
-                .andReturn().getResponse().getRedirectedUrl();
+                .andReturn().getResponse();
 
-        String path = href.substring(prefix.length());
+        String path = response.getErrorMessage();
+
+        String href = response.getRedirectedUrl();
+
+//        String path = href.substring(prefix.length());
 
         Resource resource = resourceService.getResource(path);
         assertThat(resource.exists())
                 .isTrue();
+        assertThat(href)
+                .isEqualTo(resource.httpUrl().toString());
 
         resourceService.deleteResource(path);
 

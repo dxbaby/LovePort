@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:res="http://resource.jiangcai.me" lang="en">
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../css/style.default.css" th:href="@{/css/style.default.css}"/>
@@ -22,56 +22,56 @@
 
     <div class="header-right">
         <ul class="headermenu">
-            <ul class="headermenu">
-                <li>
-                    <div class="btn-group">
-                        <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-warning-sign"></i>
-                            <span class="badge">2</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-head pull-right">
-                            <h5 class="title">待处理警告</h5>
-                            <ul class="dropdown-list user-list">
-                                <li class="new">
-                                    <div class="thumb"><a href="../job/warning.html"><img
-                                            src="../images/photos/user3.png" alt=""/></a>
-                                    </div>
-                                    <div class="desc">
-                                        <h5><a href="../job/warning.html">血压异常</a><span
-                                                class="badge badge-success">new</span></h5>
-                                    </div>
-                                </li>
-                                <li class="new">
-                                    <div class="thumb"><a href="../job/warning.html"><img
-                                            src="../images/photos/user3.png" alt=""/></a>
-                                    </div>
-                                    <div class="desc">
-                                        <h5><a href="../job/warning.html">体温异常</a><span
-                                                class="badge badge-success">new</span></h5>
-                                    </div>
-                                </li>
-                                <li class="new"><a href="../job/warnings.html">查看所有警报</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <img src="../images/photos/loggeduser.png" alt=""/>
-                            John Doe
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <li><a href="../user/setting.html"><i class="glyphicon glyphicon-cog"></i> 帐号设置</a></li>
-                            <li><a href="../user/signin.html" th:href="@{/login(logout)}"><i
-                                    class="glyphicon glyphicon-log-out"></i> 登出</a>
+            <li>
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                        <span class="badge">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="title">待处理警告</h5>
+                        <ul class="dropdown-list user-list">
+                            <li class="new">
+                                <div class="thumb"><a href="../job/warning.html"><img
+                                        src="../images/photos/user3.png" alt=""/></a>
+                                </div>
+                                <div class="desc">
+                                    <h5><a href="../job/warning.html">血压异常</a><span
+                                            class="badge badge-success">new</span></h5>
+                                </div>
                             </li>
+                            <li class="new">
+                                <div class="thumb"><a href="../job/warning.html"><img
+                                        src="../images/photos/user3.png" alt=""/></a>
+                                </div>
+                                <div class="desc">
+                                    <h5><a href="../job/warning.html">体温异常</a><span
+                                            class="badge badge-success">new</span></h5>
+                                </div>
+                            </li>
+                            <li class="new"><a href="../job/warnings.html">查看所有警报</a></li>
                         </ul>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <!--suppress ThymeleafVariablesResolveInspection -->
+                        <img src="../images/photos/loggeduser.png" alt="" res:src="${#authentication.principal}"/>
+                        <span th:text="${#authentication.name}">John Doe</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="../user/setting.html" th:href="@{/userSetting}"><i
+                                class="glyphicon glyphicon-cog"></i> 帐号设置</a></li>
+                        <li><a href="../user/signin.html" th:href="@{/login(logout)}"><i
+                                class="glyphicon glyphicon-log-out"></i> 登出</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div><!-- header-right -->
 

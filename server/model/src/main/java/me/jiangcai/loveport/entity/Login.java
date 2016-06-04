@@ -2,7 +2,7 @@ package me.jiangcai.loveport.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.jiangcai.loveport.DisplayableImage;
+import me.jiangcai.lib.resource.ResourcePathHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
@@ -22,7 +22,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Setter
 @Getter
-public abstract class Login implements UserDetails, DisplayableImage {
+public abstract class Login implements UserDetails, ResourcePathHolder {
 
     public static final String DEFAULT_IMAGE_PATH = "logged_user.png";
 
@@ -53,5 +53,10 @@ public abstract class Login implements UserDetails, DisplayableImage {
 
     public boolean isCredentialsNonExpired() {
         return true;
+    }
+
+    @Override
+    public String getHoldedResourcePath() {
+        return imagePath;
     }
 }

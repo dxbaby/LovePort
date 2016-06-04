@@ -13,4 +13,12 @@
     <artifactId>model</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>me.jiangcai.lib</groupId>
+            <artifactId>resource</artifactId>
+            <version>${jiangcai.lib.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

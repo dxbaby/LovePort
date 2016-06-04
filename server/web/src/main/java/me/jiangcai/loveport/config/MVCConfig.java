@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,12 +15,14 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -65,6 +68,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
         super.addViewControllers(registry);
 
         registry.addViewController("/login").setViewName("user/signin");
+        registry.addViewController("/userSetting").setViewName("user/setting");
     }
 
     /**
@@ -83,6 +87,11 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
         }
     }
 
+    @Override
+    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+        super.addReturnValueHandlers(returnValueHandlers);
+    }
+
     @Bean
     public ViewResolver viewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -96,6 +105,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
     private TemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         dialectSet.forEach(engine::addDialect);
+        engine.addDialect(new SpringSecurityDialect());
         engine.setEnableSpringELCompiler(true);
         engine.setTemplateResolver(templateResolver());
         return engine;
@@ -103,6 +113,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 
     private ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setCacheable(!environment.acceptsProfiles("test") && !environment.acceptsProfiles("development"));
         resolver.setApplicationContext(applicationContext);
         resolver.setPrefix("/");
         resolver.setSuffix(".html");
