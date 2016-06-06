@@ -1,10 +1,671 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../images/favicon.png" th:href="@{/images/favicon.png}" type="image/png">
+    <title>病人管理</title>
+    <link href="../css/style.default.css" th:href="@{/css/style.default.css}" rel="stylesheet">
+    <link href="../css/jquery.datatables.css" th:href="@{/css/jquery.datatables.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js" th:src="@{/js/html5shiv.js}"></script>
+    <script src="../js/respond.min.js" th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
 </head>
 <body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+</div>
+<section>
+
+    <div class="leftpanel" th:replace="fragments/left::left('patients')">
+
+        <div class="logopanel">
+            <h1><span>[</span> 后台管理 <span>]</span></h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+            <!-- This is only visible to small devices -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media userlogged">
+                    <img alt="" src="../images/photos/loggeduser.png" class="media-object">
+                    <div class="media-body">
+                        <h4>John Doe</h4>
+                        <span>"Life is so..."</span>
+                    </div>
+                </div>
+
+                <h5 class="sidebartitle actitle">Account</h5>
+                <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+                    <li><a href="../user/setting.html"><i class="fa fa-cog"></i> <span>帐号设置</span></a></li>
+                    <li><a href="../user/signin.html"><i class="fa fa-sign-out"></i> <span>登出</span></a></li>
+                </ul>
+            </div>
+
+            <h5 class="sidebartitle">导航</h5>
+            <ul id="mainMenu" class="nav nav-pills nav-stacked nav-bracket">
+                <li><a href="../index/index.html"><i class="fa fa-home"></i> <span>帮助</span></a></li>
+
+                <li><a href="../job/index.html"><i class="fa fa-suitcase"></i> <span>任务管理</span></a></li>
+
+                <li class="nav-parent nav-active active"><a href=""><i class="fa fa-users"></i> <span>用户管理</span></a>
+                    <ul class="children" style="display: block">
+                        <li><a href="../users/nurse.html"><i class="fa fa-caret-right"></i> 护工管理</a></li>
+                        <li class="active"><a href="../users/patient.html"><i class="fa fa-caret-right"></i> 病人管理</a>
+                        </li>
+                        <li><a href="../users/ward.html"><i class="fa fa-caret-right"></i> 病房管理</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../users/lock.html"><i class="fa fa-lock"></i> <span>门禁管理</span></a></li>
+                <li><a href="../settings/dict.html"><i class="fa fa-edit"></i> <span>字典管理</span></a></li>
+                <li><a href="../settings/more.html"><i class="fa fa-gears"></i> <span>设置</span></a></li>
+
+            </ul>
+
+            <div class="infosummary">
+                <h5 class="sidebartitle">系统概况</h5>
+                <ul>
+                    <li id="info-patients">
+                        <div class="datainfo">
+                            <span class="text-muted">病人数量</span>
+                            <h4>630, 201</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                    <li id="info-jobs">
+                        <div class="datainfo">
+                            <span class="text-muted">任务数量</span>
+                            <h4>201</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                    <li id="info-nurses">
+                        <div class="datainfo">
+                            <span class="text-muted">护工数量</span>
+                            <h4>1, 332, 801</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                    <li id="info-locks">
+                        <div class="datainfo">
+                            <span class="text-muted">可用门禁卡数量</span>
+                            <h4>82.2%</h4>
+                        </div>
+                        <div class="chart"></div>
+                    </li>
+                </ul>
+            </div><!-- infosummary -->
+
+        </div><!-- leftpanelinner -->
+    </div><!-- leftpanel -->
+
+    <div class="mainpanel">
+
+        <div class="headerbar" th:replace="fragments/header::header">
+
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform" action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="点击搜索……"/>
+            </form>
+
+            <div class="header-right">
+                <ul class="headermenu">
+                    <li>
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-warning-sign"></i>
+                                <span class="badge">2</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-head pull-right">
+                                <h5 class="title">待处理警告</h5>
+                                <ul class="dropdown-list user-list">
+                                    <li class="new">
+                                        <div class="thumb"><a href="../job/warning.html"><img
+                                                src="../images/photos/user3.png" alt=""/></a>
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="../job/warning.html">血压异常</a><span
+                                                    class="badge badge-success">new</span></h5>
+                                        </div>
+                                    </li>
+                                    <li class="new">
+                                        <div class="thumb"><a href="../job/warning.html"><img
+                                                src="../images/photos/user3.png" alt=""/></a>
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="../job/warning.html">体温异常</a><span
+                                                    class="badge badge-success">new</span></h5>
+                                        </div>
+                                    </li>
+                                    <li class="new"><a href="../job/warnings.html">查看所有警报</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <img src="../images/photos/loggeduser.png" alt=""/>
+                                John Doe
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                                <li><a href="../user/setting.html"><i class="glyphicon glyphicon-cog"></i> 帐号设置</a>
+                                </li>
+                                <li><a href="../user/signin.html"><i class="glyphicon glyphicon-log-out"></i> 登出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- header-right -->
+
+        </div><!-- headerbar -->
+
+        <div class="pageheader">
+            <h2><i class="fa fa-home"></i> 病人管理 <span>入住,分配病房等等</span></h2>
+        </div>
+
+        <div class="contentpanel">
+            <form id="addPatientForm" action="patient.html" method="POST" th:action="@{/config}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-btns">
+                            <a href="" class="panel-close">&times;</a>
+                            <a href="" class="minimize">&minus;</a>
+                        </div><!-- panel-btns -->
+                        <h3 class="panel-title">入住</h3>
+                        <p>入住一名病人</p>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal form-bordered">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">身份证 <span class="asterisk">*</span></label>
+
+                                <div class="col-sm-4">
+                                    <input name="checkForID" title="身份证" type="text" placeholder="输入身份证获取病人信息"
+                                           class="form-control" value="330324197710108918" th:value="''"/>
+                                </div>
+                                <button id="patientChecker" class="col-sm-2 btn btn-darkblue">检查</button>
+                            </div>
+                        </div>
+
+                        <div id="addPatient" class="form-horizontal form-bordered" style="display: none; ">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">姓名</label>
+                                <div class="col-sm-2">
+                                    <input name="name" title="姓名" type="text" class="form-control"/>
+                                </div>
+                                <label class="col-sm-2 control-label">性别</label>
+                                <div class="col-sm-2">
+                                    <select name="sex" title="性别" class="form-control input-sm sexSelect">
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">民族</label>
+                                <div class="col-sm-2">
+                                    <select name="nationality" title="民族"
+                                            class="form-control nationalitySelect">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">档案号</label>
+                                <div class="col-sm-2">
+                                    <input name="code" title="档案号" type="text" class="form-control"/>
+                                </div>
+                                <label class="col-sm-2 control-label">户籍类型</label>
+                                <div class="col-sm-2">
+                                    <select name="censusType" title="户籍类型"
+                                            class="form-control input-sm censusTypeSelect">
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">文化程度</label>
+                                <div class="col-sm-2">
+                                    <select name="culture" title="文化程度" class="form-control input-sm cultureSelect">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">身份证号</label>
+                                <div class="col-sm-2">
+                                    <input name="identityCode" title="身份证号" type="text" class="form-control"/>
+                                </div>
+                                <label class="col-sm-2 control-label">婚姻状况</label>
+                                <div class="col-sm-2">
+                                    <select name="marriage" title="婚姻状况" class="form-control input-sm marriageSelect">
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label">出生日期</label>
+                                <div class="col-sm-2">
+                                    <input name="birth" title="姓名" type="text" class="form-control datePicker"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">残疾证号</label>
+                                <div class="col-sm-2">
+                                    <input name="disabilityCode" title="残疾证号" type="text" class="form-control"/>
+                                </div>
+                                <label class="col-sm-2 control-label">手机</label>
+                                <div class="col-sm-2">
+                                    <input name="mobile" title="姓名" type="text" class="form-control"/>
+                                </div>
+                                <label class="col-sm-2 control-label">电话号码</label>
+                                <div class="col-sm-2">
+                                    <input name="phone" title="电话号码" type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地区</label>
+                                <div class="col-sm-6">
+                                    <input name="name" title="姓名" type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- panel-body -->
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button class="btn btn-primary">Submit</button>
+                                &nbsp;
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+
+                </div>
+            </form>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-btns">
+                        <a href="" class="panel-close">&times;</a>
+                        <a href="" class="minimize">&minus;</a>
+                    </div><!-- panel-btns -->
+                    <h3 class="panel-title">护工列表</h3>
+                    <p>可以删除或者更改护工的信息</p>
+                </div>
+                <div class="panel-body">
+                    <!--<div class="clearfix mb30"></div>-->
+                    <!--<h5 class="subtitle mb5">Alternative Pagination</h5>-->
+                    <!--<p>The example below shows the full_numbers type of pagination, where 'first', 'previous', 'next'-->
+                    <!--and 'last' buttons are presented, as well as the five pages around the current page.</p>-->
+                    <!--<br/>-->
+                    <div class="table-responsive">
+                        <table class="table" id="nurseTable">
+                            <thead>
+                            <tr>
+                                <th>名字</th>
+                                <th>启用</th>
+                                <th>最后使用时间</th>
+                                <th>正在任务</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <!--odd even-->
+                            <tbody>
+                            <tr class="odd gradeX">
+                                <td>Trident</td>
+                                <td class="center">是</td>
+                                <td>刚刚</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="even gradeC">
+                                <td>Trident</td>
+                                <td class="center">是</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">否</td>
+                                <td class="center">
+                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="odd gradeA">
+                                <td>Trident</td>
+                                <td class="center">是</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="even gradeA">
+                                <td>Trident</td>
+                                <td class="center">是</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="odd gradeA">
+                                <td>Trident</td>
+                                <td class="center">是</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">是</td>
+                                <td class="center">
+                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="even gradeA">
+                                <td>Trident</td>
+                                <td class="center">是</td>
+                                <td>2016-2-1 10:11</td>
+                                <td class="center">否</td>
+                                <td class="center">
+                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
+                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div><!-- table-responsive -->
+                </div>
+            </div>
+
+        </div><!-- contentpanel -->
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script src="../js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script src="../js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script src="../js/jquery-ui-1.10.3.min.js" th:src="@{/js/jquery-ui-1.10.3.min.js}"></script>
+<script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
+<script src="../js/jquery.sparkline.min.js" th:src="@{/js/jquery.sparkline.min.js}"></script>
+<script src="../js/toggles.min.js" th:src="@{/js/toggles.min.js}"></script>
+<script src="../js/retina.min.js" th:src="@{/js/retina.min.js}"></script>
+<script src="../js/jquery.cookies.js" th:src="@{/js/jquery.cookies.js}"></script>
+<script src="../js/custom.js" th:src="@{/js/custom.js}"></script>
+
+<script src="../js/jquery.validate.min13.js" th:src="@{/js/jquery.validate.min13.js}"></script>
+<script src="../js/msgresource/jquery.validation.message-zh_cn.js"
+        th:src="@{/js/msgresource/jquery.validation.message-zh_cn.js}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/u/dt/dt-1.10.12/datatables.min.js"></script>
+<script src="../js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    queryCorePatientUrl = /*[[@{/queryCorePatient}]]*/ '../mock/queryCorePatient.json';
+    /*]]*/
+</script>
+
+<script src="../js/jquery.gritter.min.js" th:src="@{/js/jquery.gritter.min.js}"></script>
+<script src="../js/jquery.util.js" th:src="@{/js/jquery.util.js}"></script>
+<link href="../css/jquery.gritter.css" rel="stylesheet" th:href="@{/css/jquery.gritter.css}"/>
+<script>
+    function showPrimary(title, text, image, time) {
+        jQuery.gritter.add({
+            title: title,
+            text: text,
+            class_name: 'growl-primary',
+            image: image,
+            sticky: false,
+            time: time ? time : ''
+        });
+    }
+    function showSuccess(title, text, image, time) {
+        jQuery.gritter.add({
+            title: title,
+            text: text,
+            class_name: 'growl-success',
+            image: image,
+            sticky: false,
+            time: time ? time : ''
+        });
+    }
+    function showWarning(title, text, image, time) {
+        jQuery.gritter.add({
+            title: title,
+            text: text,
+            class_name: 'growl-warning',
+            image: image,
+            sticky: false,
+            time: time ? time : ''
+        });
+    }
+    function showDanger(title, text, image, time) {
+        jQuery.gritter.add({
+            title: title,
+            text: text,
+            class_name: 'growl-danger',
+            image: image,
+            sticky: false,
+            time: time ? time : ''
+        });
+    }
+    function showInfo(title, text, image, time) {
+        jQuery.gritter.add({
+            title: title,
+            text: text,
+            class_name: 'growl-info',
+            image: image,
+            sticky: false,
+            time: time ? time : ''
+        });
+    }
+</script>
+
+<script>
+    $(function () {
+        $('#patientChecker').click(function () {
+            var checkForID = $('input[name=checkForID]');
+            var val = checkForID.val();
+            if (val.length != 18) {
+                checkForID.focus();
+                return false;
+            }
+
+            $.ajax({
+                url: queryCorePatientUrl,
+                error: function () {
+                    showDanger('错误', '获取数据失败');
+                },
+                success: function (data) {
+                    var addPatient = $('#addPatient');
+                    $.each(data, function (index, value) {
+                        $('*[name=' + index + ']').val('' + value);
+                    });
+                    addPatient.show();
+                }
+            });
+
+            return false;
+        });
+    });
+
+    $('#addPatientForm').validate({
+        ignoreTitle: true,
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+            $(element).remove();
+        },
+        onfocusout: function (element) {
+            $(element).valid();
+        },
+        rules: {
+            name: {
+                required: true,
+                minlength: 2
+            },
+            sex: {
+                required: true
+            },
+            nationality: {
+                required: true
+            },
+            code: {
+                required: true,
+                minlength: 10
+            },
+            censusType: {
+                required: true
+            },
+            culture: {
+                required: true
+            },
+            identityCode: {
+                required: true,
+                length: 16
+            },
+            marriage: {
+                required: true
+            },
+            birth: {
+                required: true
+            },
+            disabilityCode: {
+                required: true,
+                minlength: 10
+            },
+            mobile: {
+                required: true
+            },
+            phone: {
+                required: true
+            },
+            address: {
+                required: true
+            }
+        }
+    });
+</script>
+
+<script>
+    $(function () {
+        /////性别
+        var sexList = [
+            {
+                name: '男',
+                value: true
+            }, {
+                name: '女',
+                value: false
+            }
+        ];
+        var sexSelect = $('select[class~=sexSelect]');
+        $.each(sexList, function (index, data) {
+            sexSelect.append($('<option>', {value: data.value, text: data.name}));
+        });
+        ///民族
+        var nationalityList = [
+            '汉族', '蒙古族', '回族', '藏族', '维吾尔族', '苗族', '彝族', '壮族', '布依族', '朝鲜族', '满族', '侗族', '瑶族'
+            , '白族', '土家族', '哈尼族', '哈萨克族', '傣族', '黎族', '僳僳族', '佤族', '畲族', '高山族', '拉祜族', '水族'
+            , '东乡族', '纳西族', '景颇族', '柯尔克孜族', '土族', '达斡尔族', '仫佬族', '羌族', '布朗族', '撒拉族', '毛南族'
+            , '仡佬族', '锡伯族', '阿昌族', '普米族', '塔吉克族', '怒族', '乌孜别克族', '俄罗斯族', '鄂温克族', '德昂族'
+            , '保安族', '裕固族', '京族', '塔塔尔族', '独龙族', '鄂伦春族', '赫哲族', '门巴族', '珞巴族', '基诺族'
+        ];
+        var nationalitySelect = $('select[class~=nationalitySelect]');
+        $.each(nationalityList, function (index, data) {
+            nationalitySelect.append($('<option>', {value: data, text: data}));
+        });
+
+        nationalitySelect.chosen({'width': '100%', 'white-space': 'nowrap'});
+
+        //户籍类型
+        var censusTypeList = [
+            {
+                name: '农民',
+                value: 0
+            }, {
+                name: '居民',
+                value: 1
+            }
+        ];
+        var censusTypeSelect = $('select[class~=censusTypeSelect]');
+        $.each(censusTypeList, function (index, data) {
+            censusTypeSelect.append($('<option>', {value: data.value, text: data.name}));
+        });
+
+        //户籍类型
+        var cultureList = [
+            {
+                name: '博士',
+                value: 7
+            }, {
+                name: '硕士',
+                value: 6
+            }, {
+                name: '本科',
+                value: 5
+            }, {
+                name: '专科',
+                value: 4
+            }, {
+                name: '高中',
+                value: 3
+            }, {
+                name: '初中',
+                value: 2
+            }, {
+                name: '小学',
+                value: 1
+            }, {
+                name: '文盲',
+                value: 0
+            }
+        ];
+        var cultureSelect = $('select[class~=cultureSelect]');
+        $.each(cultureList, function (index, data) {
+            cultureSelect.append($('<option>', {value: data.value, text: data.name}));
+        });
+
+        //婚姻状况
+        var marriageList = [
+            {
+                name: '未婚',
+                value: 0
+            }, {
+                name: '已婚',
+                value: 1
+            }, {
+                name: '离异',
+                value: 2
+            }
+        ];
+        var marriageSelect = $('select[class~=marriageSelect]');
+        $.each(marriageList, function (index, data) {
+            marriageSelect.append($('<option>', {value: data.value, text: data.name}));
+        });
+
+        //日期
+        $.datepicker.setDefaults($.datepicker.regional["zhCN"]);
+        $('input[class~=datePicker]').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
 
 </body>
 </html>

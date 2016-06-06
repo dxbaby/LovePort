@@ -1,0 +1,15 @@
+{
+  "name": "某某某",
+  "sex": true,
+  "nationality": "汉",
+  "code": "档案号",
+  "censusType": 1,
+  "culture": 4,
+  "identityCode": "330123123412341234",
+  "marriage": 1,
+  "birth": "1983-3-3",
+  "disabilityCode": "残疾证号",
+  "mobile": "手机",
+  "phone": "电话",
+  "address": "地址"
+}
