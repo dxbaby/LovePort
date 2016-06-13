@@ -18,6 +18,7 @@
     </properties>
 
     <dependencies>
+        <!--http://webservice.zjdpf.org.cn/disabledservices/list/DisabledService?wsdl-->
         <dependency>
             <groupId>me.jiangcai.loveport</groupId>
             <artifactId>model</artifactId>
