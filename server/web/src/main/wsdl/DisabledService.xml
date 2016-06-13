@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:ns2="http://bean.disabled.service.widewisdom.cn"
+                  xmlns:ns1="http://common.ws.widewisdom.cn" xmlns:ns4="http://disabled.cdpf.client.widewisdom.cn"
+                  xmlns:ns3="http://bean.report.service.widewisdom.cn"
+                  xmlns:tns="http://disabled.service.widewisdom.cn"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  targetNamespace="http://disabled.service.widewisdom.cn">
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified"
+                    elementFormDefault="qualified" targetNamespace="http://common.ws.widewisdom.cn">
+            <xsd:complexType name="NetworkCredential">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="password" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="userName" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ServiceResponse">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="responseXML" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="state" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified"
+                    elementFormDefault="qualified" targetNamespace="http://disabled.service.widewisdom.cn">
+            <xsd:element name="welcome">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true"
+                                     type="ns1:NetworkCredential"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="welcomeResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ServiceResponse"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="DisabledRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="disableCardNum" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="identityCard" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="networkCredential" nillable="true" type="ns1:NetworkCredential"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="singleQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="tns:DisabledRequest"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="DisabledResponse">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="address" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="areaCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="birthDate" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="culture" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="gender" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="householdType" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="identityCard" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="marriage" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="nation" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="nativePlace" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="phone" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="photoPath" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="postcode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="responseXML" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="state" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="singleQueryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true"
+                                     type="tns:DisabledResponse"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="QueryRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="disableCardNum" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="identityCard" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="networkCredential" nillable="true" type="ns1:NetworkCredential"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="queryDisabled">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="tns:QueryRequest"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="QueryResponse">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="disabled" nillable="true" type="ns2:DisabledInfo"/>
+                    <xsd:element minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="responseXML" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="state" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="queryDisabledResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="tns:QueryResponse"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="DisabledQueryRequest">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="disabledName" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="idCard" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="networkCredential" nillable="true" type="ns1:NetworkCredential"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getIndividualQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true"
+                                     type="tns:DisabledQueryRequest"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="DisabledQueryResponse">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="citizen" nillable="true" type="ns4:ArrayOfCitizenInfo"/>
+                    <xsd:element minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="responseXML" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="state" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfString">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="string" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getIndividualQueryResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true"
+                                     type="tns:DisabledQueryResponse"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified"
+                    elementFormDefault="qualified" targetNamespace="http://bean.disabled.service.widewisdom.cn">
+            <xsd:complexType name="DisabledInfo">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="basic" nillable="true" type="ns2:DisableBasicInfo"/>
+                    <xsd:element minOccurs="0" name="content" nillable="true" type="ns3:DisabledContent"/>
+                    <xsd:element minOccurs="0" name="guardian" nillable="true" type="ns3:DisabledGuardian"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DisableBasicInfo">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="address" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="archiveNum" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="areaCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="auditDepartment" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="auditDepartmentTime" type="xsd:dateTime"/>
+                    <xsd:element minOccurs="0" name="birthDate" type="xsd:dateTime"/>
+                    <xsd:element minOccurs="0" name="cancellation" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="culture" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="dataState" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="deathTime" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableCardNum" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableCardState" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableContent" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableLevel" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableMultiple" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableNotes" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disablePart" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disableTime" type="xsd:dateTime"/>
+                    <xsd:element minOccurs="0" name="disableType" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="disabledSerialID" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="gender" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="householdType" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="identityCard" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="inputDepartment" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="inputDepartmentTime" type="xsd:dateTime"/>
+                    <xsd:element minOccurs="0" name="inputer" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="issueDate" type="xsd:dateTime"/>
+                    <xsd:element minOccurs="0" name="lastReportTime" type="xsd:dateTime"/>
+                    <xsd:element minOccurs="0" name="lastReporter" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="marriage" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="mobilePhone" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="nation" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="nativePlace" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="note" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="permanentAddress" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="phone" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="photoBasic64" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="photoPath" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="postcode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="printState" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="usedName" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified"
+                    elementFormDefault="qualified" targetNamespace="http://bean.report.service.widewisdom.cn">
+            <xsd:complexType name="DisabledContent">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="adaptiveBehavior" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="averageOss" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bodyLevel1" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bodyLevel2" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bodyLevel3" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bodyLevel4" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bodyReason" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bottomNoise" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="dasiiValue" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="dq" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="earReason" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="eyeReason" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="iq" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="iqReason" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="leftEarHearing" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="leftEyeRectify" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="leftEyeShot" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="rightEarHearing" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="rightEyeRectify" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="rightEyeShot" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="speech" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="spiritLevel" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="spiritReason" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="wordsAbility" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="wordsDefinition" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="wordsReason" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="wordsType" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DisabledGuardian">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="guardianAddress" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="guardianCard" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="guardianName" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="guardianPhone" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="guardianRelation" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified"
+                    elementFormDefault="qualified" targetNamespace="http://disabled.cdpf.client.widewisdom.cn">
+            <xsd:complexType name="ArrayOfCitizenInfo">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="CitizenInfo" nillable="true"
+                                 type="ns4:CitizenInfo"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="CitizenInfo">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="birthCountryCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="birthDate" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="birthRegionCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="bloodTypeCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="certificateParticularAddr" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="certificateStatusCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="citizenidNumber" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="dataSource" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="educationDegreeCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="engageUnit" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="familyNO" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="familyType" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="hostRelationCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="icSerialNumber" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="industialTypeCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="jiGuanCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="marriageRelationCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="nationCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="nationalServiceCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="occupation" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="occupationTypeCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="oldName" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="photoInfo" nillable="true" type="tns:ArrayOfString"/>
+                    <xsd:element minOccurs="0" name="policeStationId" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="policeStationName" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="regionCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="releaseDate" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="releaseEntity" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="residentAddr" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="sexCode" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="state" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="stature" nillable="true" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="validDuration" nillable="true" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="singleQueryResponse">
+        <wsdl:part name="parameters" element="tns:singleQueryResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getIndividualQueryResponse">
+        <wsdl:part name="parameters" element="tns:getIndividualQueryResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="singleQueryRequest">
+        <wsdl:part name="parameters" element="tns:singleQuery">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="welcomeRequest">
+        <wsdl:part name="parameters" element="tns:welcome">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getIndividualQueryRequest">
+        <wsdl:part name="parameters" element="tns:getIndividualQuery">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="queryDisabledRequest">
+        <wsdl:part name="parameters" element="tns:queryDisabled">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="queryDisabledResponse">
+        <wsdl:part name="parameters" element="tns:queryDisabledResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="welcomeResponse">
+        <wsdl:part name="parameters" element="tns:welcomeResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DisabledServicePortType">
+        <wsdl:operation name="welcome">
+            <wsdl:input name="welcomeRequest" message="tns:welcomeRequest">
+            </wsdl:input>
+            <wsdl:output name="welcomeResponse" message="tns:welcomeResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="singleQuery">
+            <wsdl:input name="singleQueryRequest" message="tns:singleQueryRequest">
+            </wsdl:input>
+            <wsdl:output name="singleQueryResponse" message="tns:singleQueryResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryDisabled">
+            <wsdl:input name="queryDisabledRequest" message="tns:queryDisabledRequest">
+            </wsdl:input>
+            <wsdl:output name="queryDisabledResponse" message="tns:queryDisabledResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getIndividualQuery">
+            <wsdl:input name="getIndividualQueryRequest" message="tns:getIndividualQueryRequest">
+            </wsdl:input>
+            <wsdl:output name="getIndividualQueryResponse" message="tns:getIndividualQueryResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DisabledServiceHttpBinding" type="tns:DisabledServicePortType">
+        <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="welcome">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="welcomeRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="welcomeResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="singleQuery">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="singleQueryRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="singleQueryResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryDisabled">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="queryDisabledRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="queryDisabledResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getIndividualQuery">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="getIndividualQueryRequest">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getIndividualQueryResponse">
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DisabledService">
+        <wsdl:port name="DisabledServiceHttpPort" binding="tns:DisabledServiceHttpBinding">
+            <wsdlsoap:address location="http://webservice.zjdpf.org.cn/disabledservices/list/DisabledService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
