@@ -295,8 +295,8 @@
                         <a href="" class="panel-close">&times;</a>
                         <a href="" class="minimize">&minus;</a>
                     </div><!-- panel-btns -->
-                    <h3 class="panel-title">护工列表</h3>
-                    <p>可以删除或者更改护工的信息</p>
+                    <h3 class="panel-title">病人列表</h3>
+                    <p>可以删除或者更改病人的信息</p>
                 </div>
                 <div class="panel-body">
                     <!--<div class="clearfix mb30"></div>-->
@@ -305,44 +305,24 @@
                     <!--and 'last' buttons are presented, as well as the five pages around the current page.</p>-->
                     <!--<br/>-->
                     <div class="table-responsive">
-                        <table class="table" id="nurseTable">
+                        <table class="table" id="patientTable">
                             <thead>
                             <tr>
+                                <th>病房</th>
                                 <th>名字</th>
-                                <th>启用</th>
-                                <th>最后使用时间</th>
-                                <th>正在任务</th>
+                                <th>体温</th>
+                                <th>心跳</th>
+                                <th>是否离床</th>
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <!--odd even-->
                             <tbody>
                             <tr class="odd gradeX">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>刚刚</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="even gradeC">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">否</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="odd gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
+                                <td>607</td>
+                                <td class="center">吴兰花</td>
+                                <td align="right">N/A</td>
+                                <td align="right">N/A</td>
                                 <td class="center">是</td>
                                 <td class="center">
                                     <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
@@ -350,39 +330,7 @@
                                             class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
-                            <tr class="even gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="odd gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="even gradeA">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">否</td>
-                                <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
-                                            class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+
 
                             </tbody>
                         </table>
@@ -417,6 +365,13 @@
     queryCorePatientUrl = /*[[@{/queryCorePatient}]]*/ '../mock/queryCorePatient.json';
     /*]]*/
 </script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    dataTable_localisation_url = /*[[@{/localisation/dataTable_zh_CN.json}]]*/ '../localisation/dataTable_zh_CN.json';
+    /*]]*/
+</script>
+<script src="js/patient.js" th:src="@{/users/js/patient.js}"></script>
+<script src="../js/dataType.js" th:src="@{/js/dataType.js}"></script>
 
 <script src="../js/jquery.gritter.min.js" th:src="@{/js/jquery.gritter.min.js}"></script>
 <script src="../js/jquery.util.js" th:src="@{/js/jquery.util.js}"></script>
@@ -472,199 +427,6 @@
             time: time ? time : ''
         });
     }
-</script>
-
-<script>
-    $(function () {
-        $('#patientChecker').click(function () {
-            var checkForID = $('input[name=checkForID]');
-            var val = checkForID.val();
-            if (val.length != 18) {
-                checkForID.focus();
-                return false;
-            }
-
-            $.ajax({
-                url: queryCorePatientUrl,
-                error: function () {
-                    showDanger('错误', '获取数据失败');
-                },
-                success: function (data) {
-                    var addPatient = $('#addPatient');
-                    $.each(data, function (index, value) {
-                        $('*[name=' + index + ']').val('' + value);
-                    });
-                    addPatient.show();
-                }
-            });
-
-            return false;
-        });
-    });
-
-    $('#addPatientForm').validate({
-        ignoreTitle: true,
-        highlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-        },
-        success: function (element) {
-            $(element).closest('.form-group').removeClass('has-error');
-            $(element).remove();
-        },
-        onfocusout: function (element) {
-            $(element).valid();
-        },
-        rules: {
-            name: {
-                required: true,
-                minlength: 2
-            },
-            sex: {
-                required: true
-            },
-            nationality: {
-                required: true
-            },
-            code: {
-                required: true,
-                minlength: 10
-            },
-            censusType: {
-                required: true
-            },
-            culture: {
-                required: true
-            },
-            identityCode: {
-                required: true,
-                length: 16
-            },
-            marriage: {
-                required: true
-            },
-            birth: {
-                required: true
-            },
-            disabilityCode: {
-                required: true,
-                minlength: 10
-            },
-            mobile: {
-                required: true
-            },
-            phone: {
-                required: true
-            },
-            address: {
-                required: true
-            }
-        }
-    });
-</script>
-
-<script>
-    $(function () {
-        /////性别
-        var sexList = [
-            {
-                name: '男',
-                value: true
-            }, {
-                name: '女',
-                value: false
-            }
-        ];
-        var sexSelect = $('select[class~=sexSelect]');
-        $.each(sexList, function (index, data) {
-            sexSelect.append($('<option>', {value: data.value, text: data.name}));
-        });
-        ///民族
-        var nationalityList = [
-            '汉族', '蒙古族', '回族', '藏族', '维吾尔族', '苗族', '彝族', '壮族', '布依族', '朝鲜族', '满族', '侗族', '瑶族'
-            , '白族', '土家族', '哈尼族', '哈萨克族', '傣族', '黎族', '僳僳族', '佤族', '畲族', '高山族', '拉祜族', '水族'
-            , '东乡族', '纳西族', '景颇族', '柯尔克孜族', '土族', '达斡尔族', '仫佬族', '羌族', '布朗族', '撒拉族', '毛南族'
-            , '仡佬族', '锡伯族', '阿昌族', '普米族', '塔吉克族', '怒族', '乌孜别克族', '俄罗斯族', '鄂温克族', '德昂族'
-            , '保安族', '裕固族', '京族', '塔塔尔族', '独龙族', '鄂伦春族', '赫哲族', '门巴族', '珞巴族', '基诺族'
-        ];
-        var nationalitySelect = $('select[class~=nationalitySelect]');
-        $.each(nationalityList, function (index, data) {
-            nationalitySelect.append($('<option>', {value: data, text: data}));
-        });
-
-        nationalitySelect.chosen({'width': '100%', 'white-space': 'nowrap'});
-
-        //户籍类型
-        var censusTypeList = [
-            {
-                name: '农民',
-                value: 0
-            }, {
-                name: '居民',
-                value: 1
-            }
-        ];
-        var censusTypeSelect = $('select[class~=censusTypeSelect]');
-        $.each(censusTypeList, function (index, data) {
-            censusTypeSelect.append($('<option>', {value: data.value, text: data.name}));
-        });
-
-        //户籍类型
-        var cultureList = [
-            {
-                name: '博士',
-                value: 7
-            }, {
-                name: '硕士',
-                value: 6
-            }, {
-                name: '本科',
-                value: 5
-            }, {
-                name: '专科',
-                value: 4
-            }, {
-                name: '高中',
-                value: 3
-            }, {
-                name: '初中',
-                value: 2
-            }, {
-                name: '小学',
-                value: 1
-            }, {
-                name: '文盲',
-                value: 0
-            }
-        ];
-        var cultureSelect = $('select[class~=cultureSelect]');
-        $.each(cultureList, function (index, data) {
-            cultureSelect.append($('<option>', {value: data.value, text: data.name}));
-        });
-
-        //婚姻状况
-        var marriageList = [
-            {
-                name: '未婚',
-                value: 0
-            }, {
-                name: '已婚',
-                value: 1
-            }, {
-                name: '离异',
-                value: 2
-            }
-        ];
-        var marriageSelect = $('select[class~=marriageSelect]');
-        $.each(marriageList, function (index, data) {
-            marriageSelect.append($('<option>', {value: data.value, text: data.name}));
-        });
-
-        //日期
-        $.datepicker.setDefaults($.datepicker.regional["zhCN"]);
-        $('input[class~=datePicker]').datepicker({
-            dateFormat: 'yy-mm-dd'
-        });
-    });
 </script>
 
 </body>
