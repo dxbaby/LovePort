@@ -78,7 +78,8 @@
             <li class="nav-parent" bkt:activeMenu="'users,nurses,patients,wards'"><a href=""><i class="fa fa-users"></i>
                 <span>用户管理</span></a>
                 <ul class="children" bkt:menuChildren="1">
-                    <li bkt:activeMenu="nurses"><a href="../users/nurse.html"><i class="fa fa-caret-right"></i> 护工管理</a>
+                    <li bkt:activeMenu="nurses"><a href="../users/nurse.html" th:href="@{/nurse}"><i
+                            class="fa fa-caret-right"></i> 护工管理</a>
                     </li>
                     <li bkt:activeMenu="patients"><a href="../users/patient.html"><i class="fa fa-caret-right"></i> 病人管理</a>
                     </li>
@@ -88,6 +89,8 @@
             </li>
 
             <li bkt:activeMenu="lock"><a href="../users/lock.html"><i class="fa fa-lock"></i> <span>门禁管理</span>
+            </a></li>
+            <li bkt:activeMenu="warn"><a href="../warn/index.html"><i class="fa fa-warning"></i> <span>报警管理</span>
             </a></li>
             <li bkt:activeMenu="dict"><a href="../settings/dict.html"><i class="fa fa-edit"></i> <span>字典管理</span>
             </a></li>

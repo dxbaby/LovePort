@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -31,6 +32,9 @@ import java.util.Set;
  * @author CJ
  */
 @Configuration
+@DependsOn(
+        {"coreConfig"}
+)
 @ComponentScan({"me.jiangcai.loveport.controller"})
 @EnableWebMvc
 public class MVCConfig extends WebMvcConfigurerAdapter {

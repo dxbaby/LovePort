@@ -64,6 +64,7 @@
                 </li>
 
                 <li><a href="../users/lock.html"><i class="fa fa-lock"></i> <span>门禁管理</span></a></li>
+                <li><a href="../warn/index.html"><i class="fa fa-warning"></i> <span>警报管理</span></a></li>
                 <li><a href="../settings/dict.html"><i class="fa fa-edit"></i> <span>字典管理</span></a></li>
                 <li><a href="../settings/more.html"><i class="fa fa-gears"></i> <span>设置</span></a></li>
 
@@ -176,7 +177,7 @@
         </div>
 
         <div class="contentpanel">
-            <form id="nurseForm" action="nurse.html" method="POST" th:action="@{/config}">
+            <form id="nurseForm" action="nurse.html" method="POST" th:action="@{/nurse}">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-btns">
@@ -246,32 +247,32 @@
                             <tr>
                                 <th>名字</th>
                                 <th>启用</th>
-                                <th>最后使用时间</th>
-                                <th>正在任务</th>
-                                <th>监控病人</th>
+                                <!--<th>最后使用时间</th>-->
+                                <!--<th>正在任务</th>-->
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
                             <!--odd even-->
-                            <tbody>
+                            <tbody th:remove="all-but-first" th:each="nurse:${nurses}">
                             <tr class="odd gradeX">
-                                <td>Trident</td>
-                                <td class="center">是</td>
-                                <td>刚刚</td>
-                                <td class="center">是</td>
-                                <td>某某</td>
+                                <td th:text="${nurse.username}">Trident</td>
+                                <td class="center" th:text="${nurse.enabled}">是</td>
+                                <!--<td>刚刚</td>-->
+                                <!--<td class="center">是</td>-->
+                                <!--<td>某某</td>-->
                                 <td class="center">
-                                    <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
-                                    <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
+                                    <!--<a href="editNurse.html"><i class="fa fa-pencil"></i></a>-->
+                                    <a href="" th:href="@{/nurseDelete(id=${nurse.id})}"
+                                       onclick="return confirm('确实要删除么?')" class="delete-row"><i
                                             class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <tr class="even gradeC">
                                 <td>Trident</td>
                                 <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">否</td>
-                                <td>某某</td>
+                                <!--<td>2016-2-1 10:11</td>-->
+                                <!--<td class="center">否</td>-->
+                                <!--<td>某某</td>-->
                                 <td class="center">
                                     <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
                                     <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
@@ -281,9 +282,9 @@
                             <tr class="odd gradeA">
                                 <td>Trident</td>
                                 <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td>某某</td>
+                                <!--<td>2016-2-1 10:11</td>-->
+                                <!--<td class="center">是</td>-->
+                                <!--<td>某某</td>-->
                                 <td class="center">
                                     <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
                                     <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
@@ -293,9 +294,9 @@
                             <tr class="even gradeA">
                                 <td>Trident</td>
                                 <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td>某某</td>
+                                <!--<td>2016-2-1 10:11</td>-->
+                                <!--<td class="center">是</td>-->
+                                <!--<td>某某</td>-->
                                 <td class="center">
                                     <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
                                     <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
@@ -305,9 +306,9 @@
                             <tr class="odd gradeA">
                                 <td>Trident</td>
                                 <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">是</td>
-                                <td>某某</td>
+                                <!--<td>2016-2-1 10:11</td>-->
+                                <!--<td class="center">是</td>-->
+                                <!--<td>某某</td>-->
                                 <td class="center">
                                     <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
                                     <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i
@@ -317,9 +318,9 @@
                             <tr class="even gradeA">
                                 <td>Trident</td>
                                 <td class="center">是</td>
-                                <td>2016-2-1 10:11</td>
-                                <td class="center">否</td>
-                                <td>某某</td>
+                                <!--<td>2016-2-1 10:11</td>-->
+                                <!--<td class="center">否</td>-->
+                                <!--<td>某某</td>-->
                                 <td class="center">
                                     <a href="editNurse.html"><i class="fa fa-pencil"></i></a>
                                     <a href="" onclick="return confirm('确实要删除么?')" class="delete-row"><i

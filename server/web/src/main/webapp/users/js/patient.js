@@ -14,7 +14,7 @@ $(function () {
         }
 
         $.ajax({
-            url: queryCorePatientUrl,
+            url: queryCorePatientUrl + "?id=" + val,
             error: function () {
                 showDanger('错误', '获取数据失败');
             },
